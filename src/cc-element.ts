@@ -4,14 +4,23 @@ import { customElement, property } from "lit/decorators.js";
 @customElement("cc-element")
 export class CCElement extends LitElement {
   /**
-   *
-   * video src
+   * Specifies the URL of the media file
    */
   @property({ type: String })
   src = "";
+  /**
+   * Specifies the MIME-type of the resource
+   */
+  @property({ type: String })
+  srcType = "";
 
   render() {
-    return html` <video controls src=${this.src}></video> `;
+    return html`
+      <video controls preload="metadata">
+        <source src=${this.src} type=${`video/${this.srcType}`} />
+        <div></div>
+      </video>
+    `;
   }
 
   static styles = css`

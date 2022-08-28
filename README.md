@@ -1,1 +1,5 @@
-## VTTCue Web Component
+## (CC) Web Component
+
+## Objectives
+
+- WebVTT file format
