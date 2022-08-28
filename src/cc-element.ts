@@ -1,6 +1,22 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
+export interface ISource {
+  src: string;
+  srcType: string;
+}
+
+export interface ITrack {
+  label: string;
+  kind: string;
+  srclang: string;
+  default: boolean;
+}
+
+type SourceList = Array<ISource>;
+
+type TrackList = Array<ITrack>;
+
 @customElement("cc-element")
 export class CCElement extends LitElement {
   /**
@@ -13,6 +29,12 @@ export class CCElement extends LitElement {
    */
   @property({ type: String })
   srcType = "";
+
+  @property()
+  sources: SourceList = [];
+
+  @property()
+  tracks: TrackList = [];
 
   render() {
     return html`
