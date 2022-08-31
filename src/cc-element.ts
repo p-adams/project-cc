@@ -1,7 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import waves from "./demo/videos/waves.mp4";
-// import captions from "./demo/vtt_files/en.vtt";
 
 export interface ISource {
   src: string;
