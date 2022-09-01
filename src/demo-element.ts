@@ -1,14 +1,38 @@
 import { LitElement, css, html } from "lit";
-import { customElement /*property*/ } from "lit/decorators.js";
+import { customElement /*property*/, property } from "lit/decorators.js";
 
 import "./cc-element";
 
 @customElement("demo-element")
 export class DemoElement extends LitElement {
+  @property()
+  videoUrl: string = "";
+
+  @property()
+  captionUrl: string = "";
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._fetchCaptions();
+    this._fetchVideo();
+  }
+  private async _fetchVideo() {
+    await fetch("/api/videos/waves.mp4")
+      .then((res) => res)
+      .then((res) => (this.videoUrl = res.url));
+  }
+  private async _fetchCaptions() {
+    await fetch("/api/vtt_files/en.vtt")
+      .then((res) => res)
+      .then((res) => (this.captionUrl = res.url));
+  }
   render() {
     return html`
       <div>
-        <cc-element></cc-element>
+        <cc-element
+          videoSrc=${this.videoUrl}
+          captionsSrc=${this.captionUrl}
+        ></cc-element>
       </div>
     `;
   }

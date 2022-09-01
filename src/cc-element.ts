@@ -1,6 +1,5 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import waves from "./demo/videos/waves.mp4";
 
 export interface ISource {
   src: string;
@@ -24,13 +23,17 @@ export class CCElement extends LitElement {
    * Specifies the URL of the media file
    */
   @property({ type: String })
-  src = waves;
+  videoSrc = "test";
   /**
    * Specifies the MIME-type of the resource
    */
   @property({ type: String })
-  srcType = "mp4";
+  videoSrcType = "mp4";
 
+  @property()
+  captionsSrc = "";
+
+  // TODO: accept multiple sources/tracks
   @property()
   sources: SourceList = [];
 
@@ -40,12 +43,12 @@ export class CCElement extends LitElement {
   render() {
     return html`
       <video controls preload="metadata">
-        <source src=${this.src} type=${`video/${this.srcType}`} />
+        <source src=${this.videoSrc} type=${`video/${this.videoSrcType}`} />
         <track
           label="English"
           kind="subtitles"
           srclang="en"
-          src=${``}
+          src=${this.captionsSrc}
           default
         />
       </video>
