@@ -32,7 +32,6 @@ const init = async () => {
   });
 
   await server.start();
-  // console.log(captions);
   console.log("Server running on %s", server.info.uri);
 };
 
