@@ -2,14 +2,15 @@ import { LitElement, css, html } from "lit";
 import { customElement /*property*/, property } from "lit/decorators.js";
 
 import "./cc-element";
+import { ISource, ITrack } from "./cc-element";
 
 @customElement("demo-element")
 export class DemoElement extends LitElement {
   @property()
-  videoUrl: string = "";
+  source?: ISource;
 
   @property()
-  captionUrl: string = "";
+  track?: ITrack;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -19,20 +20,27 @@ export class DemoElement extends LitElement {
   private async _fetchVideo() {
     await fetch("/api/videos/waves.mp4")
       .then((res) => res)
-      .then((res) => (this.videoUrl = res.url));
+      .then((res) => {
+        this.source = { src: res.url, srcType: "video/mp4" };
+      });
   }
   private async _fetchCaptions() {
     await fetch("/api/vtt_files/en.vtt")
       .then((res) => res)
-      .then((res) => (this.captionUrl = res.url));
+      .then((res) => {
+        this.track = {
+          label: "English",
+          kind: "subtitles",
+          src: res.url,
+          srclang: "en",
+          default: true,
+        };
+      });
   }
   render() {
     return html`
       <div>
-        <cc-element
-          videoSrc=${this.videoUrl}
-          captionsSrc=${this.captionUrl}
-        ></cc-element>
+        <cc-element .track=${this.track} .source=${this.source}></cc-element>
       </div>
     `;
   }

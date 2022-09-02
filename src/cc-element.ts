@@ -2,13 +2,20 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 export interface ISource {
+  /**
+   * Specifies the URL of the media file
+   */
   src: string;
+  /**
+   * Specifies the MIME-type of the resource
+   */
   srcType: string;
 }
 
 export interface ITrack {
   label: string;
   kind: string;
+  src: string;
   srclang: string;
   default: boolean;
 }
@@ -19,20 +26,6 @@ type TrackList = Array<ITrack>;
 
 @customElement("cc-element")
 export class CCElement extends LitElement {
-  /**
-   * Specifies the URL of the media file
-   */
-  @property({ type: String })
-  videoSrc = "test";
-  /**
-   * Specifies the MIME-type of the resource
-   */
-  @property({ type: String })
-  videoSrcType = "mp4";
-
-  @property()
-  captionsSrc = "";
-
   // TODO: accept multiple sources/tracks
   @property()
   sources: SourceList = [];
@@ -40,17 +33,19 @@ export class CCElement extends LitElement {
   @property()
   tracks: TrackList = [];
 
+  @property()
+  source?: ISource;
+
+  @property()
+  track?: ITrack;
+
   render() {
     return html`
       <video controls preload="metadata">
-        <source src=${this.videoSrc} type=${`video/${this.videoSrcType}`} />
-        <track
-          label="English"
-          kind="subtitles"
-          srclang="en"
-          src=${this.captionsSrc}
-          default
-        />
+        <source src=${this.source?.src} type=${`${this.source?.srcType}`} />
+        <track label=${this.track?.label} kind=${this.track?.kind}
+        srclang=${this.track?.srclang} "en" src=${this.track?.src}
+        default=${this.track?.default} />
       </video>
     `;
   }
