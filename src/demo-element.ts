@@ -40,7 +40,7 @@ export class DemoElement extends LitElement {
   render() {
     return html`
       <div>
-        <cc-element .track=${this.track} .source=${this.source}></cc-element>
+        <cc-element .track=${this.track} .source=${this.source}> </cc-element>
       </div>
     `;
   }
