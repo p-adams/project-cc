@@ -2,6 +2,7 @@ import { LitElement, css, html } from "lit";
 import { customElement /*property*/, property } from "lit/decorators.js";
 
 import "./cc-element";
+import "./cc-cue-element";
 import { ISource, ITrack } from "./cc-element";
 
 @customElement("demo-element")
@@ -40,7 +41,19 @@ export class DemoElement extends LitElement {
   render() {
     return html`
       <div>
-        <cc-element .track=${this.track} .source=${this.source}> </cc-element>
+        <section>
+          <h3>CC Demo</h3>
+          <div>
+            <cc-element .track=${this.track} .source=${this.source}>
+            </cc-element>
+          </div>
+        </section>
+        <article>
+          <section>
+            <h3>CC Cue Demo</h3>
+            <div><cc-cue-element .source=${this.source}></cc-cue-element></div>
+          </section>
+        </article>
       </div>
     `;
   }
@@ -52,6 +65,13 @@ export class DemoElement extends LitElement {
       padding: 2rem;
       text-align: center;
     }
+
+    section {
+      border: 1px solid grey;
+      padding: 10px;
+      margin-bottom: 18px;
+    }
+
     @media (prefers-color-scheme: light) {
       a:hover {
         color: #747bff;
