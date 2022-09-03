@@ -48,12 +48,11 @@ export class DemoElement extends LitElement {
             </cc-element>
           </div>
         </section>
-        <article>
-          <section>
-            <h3>CC Cue Demo</h3>
-            <div><cc-cue-element .source=${this.source}></cc-cue-element></div>
-          </section>
-        </article>
+
+        <section>
+          <h3>CC Cue Demo</h3>
+          <div><cc-cue-element .source=${this.source}></cc-cue-element></div>
+        </section>
       </div>
     `;
   }
