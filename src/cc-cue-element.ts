@@ -1,4 +1,10 @@
-import { LitElement, css, html, PropertyDeclaration } from "lit";
+import {
+  LitElement,
+  css,
+  html,
+  PropertyDeclaration,
+  PropertyValueMap,
+} from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { createRef, Ref, ref } from "lit/directives/ref.js";
 import { ISource } from "./cc-element";
@@ -11,15 +17,17 @@ import { ISource } from "./cc-element";
 @customElement("cc-cue-element")
 export class CCCueElement extends LitElement {
   @property()
-  video?: HTMLVideoElement;
-
-  @property()
   source?: ISource;
 
   videoRef: Ref<HTMLVideoElement> = createRef();
+  videoRefCb = (el: Element | undefined) => {
+    console.log(el);
+  };
 
   render() {
-    return html`<video controls preload="metadata" ${ref(this.videoRef)}>
+    return html`<video controls preload="metadata" ${ref((e) =>
+      this.videoRefCb(e)
+    )}>
       <source src=${this.source?.src} type=${this.source?.srcType}></source>
     </video> `;
   }
