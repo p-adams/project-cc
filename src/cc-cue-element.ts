@@ -1,4 +1,4 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { createRef, Ref, ref } from "lit/directives/ref.js";
 import { ISource, CueList } from "./cc-element";
@@ -14,7 +14,7 @@ export class CCCueElement extends LitElement {
   source?: ISource;
 
   @property()
-  cues?: CueList;
+  cues: CueList = [];
 
   @property()
   video: any;
@@ -22,9 +22,23 @@ export class CCCueElement extends LitElement {
   videoRef: Ref<HTMLVideoElement> = createRef();
 
   render() {
-    return html`<video controls preload="metadata" ref=${this.videoRef}>
+    return html`<video controls preload="metadata" ${ref(this.videoRef)}>
       <source src=${this.source?.src} type=${this.source?.srcType}></source>
     </video> `;
+  }
+
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    const track = this.videoRef.value?.addTextTrack(
+      "captions",
+      "Captions",
+      "en"
+    );
+    track!.mode = "showing";
+    for (const cue of this.cues) {
+      track?.addCue(new VTTCue(cue.startTime, cue.endTime, cue.text));
+    }
   }
 
   static styles = css`
