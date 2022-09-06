@@ -27,18 +27,29 @@ export class CCCueElement extends LitElement {
     </video> `;
   }
 
-  protected firstUpdated(
-    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
-  ): void {
-    const track = this.videoRef.value?.addTextTrack(
-      "captions",
-      "Captions",
-      "en"
-    );
+  private setCaptions({
+    kind,
+    label,
+    language,
+  }: {
+    kind: TextTrackKind;
+    label?: string;
+    language?: string;
+  }) {
+    const track = this.videoRef.value?.addTextTrack(kind, label, language);
     track!.mode = "showing";
     for (const cue of this.cues) {
       track?.addCue(new VTTCue(cue.startTime, cue.endTime, cue.text));
     }
+  }
+  protected firstUpdated(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+  ): void {
+    this.setCaptions({
+      kind: "captions",
+      label: "Captions",
+      language: "en",
+    });
   }
 
   static styles = css`
