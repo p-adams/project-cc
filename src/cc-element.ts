@@ -12,6 +12,12 @@ export interface ISource {
   srcType: string;
 }
 
+export interface ICue {
+  startTime: number;
+  endTime: number;
+  text: string;
+}
+
 export interface ITrack {
   label: string;
   kind: string;
@@ -23,6 +29,8 @@ export interface ITrack {
 type SourceList = Array<ISource>;
 
 type TrackList = Array<ITrack>;
+
+export type CueList = Array<ICue>;
 
 @customElement("cc-element")
 export class CCElement extends LitElement {

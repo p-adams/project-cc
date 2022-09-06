@@ -1,13 +1,7 @@
-import {
-  LitElement,
-  css,
-  html,
-  PropertyDeclaration,
-  PropertyValueMap,
-} from "lit";
+import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { createRef, Ref, ref } from "lit/directives/ref.js";
-import { ISource } from "./cc-element";
+import { ISource, CueList } from "./cc-element";
 
 /**
  * accepts list of VTTCue objects
@@ -19,15 +13,16 @@ export class CCCueElement extends LitElement {
   @property()
   source?: ISource;
 
+  @property()
+  cues?: CueList;
+
+  @property()
+  video: any;
+
   videoRef: Ref<HTMLVideoElement> = createRef();
-  videoRefCb = (el: Element | undefined) => {
-    console.log(el);
-  };
 
   render() {
-    return html`<video controls preload="metadata" ${ref((e) =>
-      this.videoRefCb(e)
-    )}>
+    return html`<video controls preload="metadata" ref=${this.videoRef}>
       <source src=${this.source?.src} type=${this.source?.srcType}></source>
     </video> `;
   }

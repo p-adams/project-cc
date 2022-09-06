@@ -51,7 +51,15 @@ export class DemoElement extends LitElement {
 
         <section>
           <h3>CC Cue Demo</h3>
-          <div><cc-cue-element .source=${this.source}></cc-cue-element></div>
+          <div>
+            <cc-cue-element
+              .source=${this.source}
+              .cues=${[
+                { startTime: 0, endTime: 1, text: "Testing..." },
+                { startTime: 2, endTime: 3, text: "Testing testing..." },
+              ]}
+            ></cc-cue-element>
+          </div>
         </section>
       </div>
     `;
