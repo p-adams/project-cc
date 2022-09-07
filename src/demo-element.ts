@@ -3,15 +3,15 @@ import { customElement /*property*/, property } from "lit/decorators.js";
 
 import "./cc-element";
 import "./cc-cue-element";
-import { ISource, ITrack } from "./cc-element";
+import { Source, Track } from "./cc-element";
 
 @customElement("demo-element")
 export class DemoElement extends LitElement {
   @property()
-  source?: ISource;
+  source?: Source;
 
   @property()
-  track?: ITrack;
+  track?: Track;
 
   connectedCallback(): void {
     super.connectedCallback();
