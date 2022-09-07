@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-export interface ISource {
+export interface Source {
   /**
    * Specifies the URL of the media file
    */
@@ -12,13 +12,13 @@ export interface ISource {
   srcType: string;
 }
 
-export interface ICue {
+export interface Cue {
   startTime: number;
   endTime: number;
   text: string;
 }
 
-export interface ITrack {
+export interface Track {
   label: string;
   kind: string;
   src: string;
@@ -26,11 +26,11 @@ export interface ITrack {
   default: boolean;
 }
 
-type SourceList = Array<ISource>;
+type SourceList = Array<Source>;
 
-type TrackList = Array<ITrack>;
+type TrackList = Array<Track>;
 
-export type CueList = Array<ICue>;
+export type CueList = Array<Cue>;
 
 @customElement("cc-element")
 export class CCElement extends LitElement {
@@ -42,10 +42,10 @@ export class CCElement extends LitElement {
   tracks: TrackList = [];
 
   @property()
-  source?: ISource;
+  source?: Source;
 
   @property()
-  track?: ITrack;
+  track?: Track;
 
   render() {
     return html`

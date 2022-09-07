@@ -1,5 +1,5 @@
 ## (CC) Web Component
 
-## Objectives
+## WebVTT file API
 
-- WebVTT file format
+## CueList API
