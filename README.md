@@ -1,6 +1,6 @@
 ## (CC) Web Component
 
-## WebVTT file API
+### WebVTT file API
 
 Example usage:
 
@@ -31,3 +31,16 @@ Example usage:
 ```
 
 ## CueList API
+
+Example usage:
+
+```
+<cc-cue-element
+    .sources=${[{src: 'path/to/video.mp4', srcType: 'video/mp4'},]}
+    .cues=${[
+        { startTime: 0, endTime: 1, text: "Testing..." },
+        { startTime: 2, endTime: 3, text: "Testing testing..." },
+    ]}>
+</cc-cue-element>
+
+```
