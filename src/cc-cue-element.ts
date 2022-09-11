@@ -1,7 +1,7 @@
 import { LitElement, css, html, PropertyValueMap } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { createRef, Ref, ref } from "lit/directives/ref.js";
-import { Source, CueList } from "./cc-element";
+import { Source, CueList, SourceList } from "./cc-element";
 
 /**
  * accepts list of VTTCue objects
@@ -11,7 +11,7 @@ import { Source, CueList } from "./cc-element";
 @customElement("cc-cue-element")
 export class CCCueElement extends LitElement {
   @property()
-  source?: Source;
+  sources?: SourceList;
 
   @property()
   cues: CueList = [];
@@ -20,8 +20,15 @@ export class CCCueElement extends LitElement {
 
   render() {
     return html`<video controls preload="metadata" ${ref(this.videoRef)}>
-      <source src=${this.source?.src} type=${this.source?.srcType}></source>
+      ${this.sourceEls()}
     </video> `;
+  }
+
+  sourceEls() {
+    return this.sources?.map(
+      (source: Source) =>
+        html`<source src=${source.src} type=${source.srcType} />`
+    );
   }
 
   private setCaptions({

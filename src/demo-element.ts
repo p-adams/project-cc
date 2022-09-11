@@ -44,7 +44,7 @@ export class DemoElement extends LitElement {
         <section>
           <h3>CC Demo</h3>
           <div>
-            <cc-element .track=${this.track} .source=${this.source}>
+            <cc-element .tracks=${[this.track]} .sources=${[this.source]}>
             </cc-element>
           </div>
         </section>
@@ -53,7 +53,7 @@ export class DemoElement extends LitElement {
           <h3>CC Cue Demo</h3>
           <div>
             <cc-cue-element
-              .source=${this.source}
+              .sources=${[this.source]}
               .cues=${[
                 { startTime: 0, endTime: 1, text: "Testing..." },
                 { startTime: 2, endTime: 3, text: "Testing testing..." },

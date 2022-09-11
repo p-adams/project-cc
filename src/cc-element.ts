@@ -26,7 +26,7 @@ export interface Track {
   default: boolean;
 }
 
-type SourceList = Array<Source>;
+export type SourceList = Array<Source>;
 
 type TrackList = Array<Track>;
 
@@ -34,28 +34,38 @@ export type CueList = Array<Cue>;
 
 @customElement("cc-element")
 export class CCElement extends LitElement {
-  // TODO: accept multiple sources/tracks
   @property()
   sources: SourceList = [];
 
   @property()
   tracks: TrackList = [];
 
-  @property()
-  source?: Source;
-
-  @property()
-  track?: Track;
-
   render() {
     return html`
       <video controls preload="metadata">
-        <source src=${this.source?.src} type=${`${this.source?.srcType}`} />
-        <track label=${this.track?.label} kind=${this.track?.kind}
-        srclang=${this.track?.srclang} "en" src=${this.track?.src}
-        default=${this.track?.default} />
+        ${this.sourceEls()} ${this.trackEls()}
       </video>
     `;
+  }
+
+  sourceEls() {
+    return this.sources.map(
+      (source: Source) =>
+        html`<source src=${source.src} type=${source.srcType} />`
+    );
+  }
+
+  trackEls() {
+    return this.tracks.map(
+      (track: Track) =>
+        html`<track
+          label=${track.label}
+          kind=${track.kind}
+          srclang=${track.srclang}
+          src=${track.src}
+          default=${track.default}
+        />`
+    );
   }
 
   static styles = css`
